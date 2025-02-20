@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Yaniyo Ürün Takipçisi",
+  "version": "1.0",
+  "description": "Yaniyo'da yeni ürünleri takip eder ve yeni sekmede açar.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+    }
+  },
+  "permissions": ["alarms", "tabs", "storage", "scripting"],
+  "host_permissions": ["https://yaniyo.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+  }
+}
