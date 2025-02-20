@@ -1,8 +1,10 @@
 let intervalId = null;
 let seenProducts = new Set();
+let url2 =""; 
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.command === 'start') {
+    url2 = message.url;
     const interval = message.interval * 1000; // Saniyeden milisaniyeye çevir
     if (intervalId) clearInterval(intervalId); // Önceki interval'i temizle
     intervalId = setInterval(checkProducts, interval);
@@ -13,7 +15,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 async function checkProducts() {
-  const tab = await chrome.tabs.create({ url: 'https://yaniyo.com/tum-firsatlar', active: false });
+  const tab = await chrome.tabs.create({ url: url2, active: false });
+  console.log(url2)
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     func: scrapeProducts,
@@ -35,7 +38,8 @@ function scrapeProducts() {
   const products = [];
   const productElements = document.querySelectorAll('.Product_product__bI6Qj');
   productElements.forEach(product => {
-    const link = product.querySelector('a')?.href;
+    const productContainer = document.querySelector('.Product_gotoBuy__HGaEw'); 
+    const link = productContainer.querySelector('a')?.href;
     if (link) {
       products.push({ link });
     }

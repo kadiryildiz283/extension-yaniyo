@@ -1,8 +1,8 @@
 document.getElementById('startButton').addEventListener('click', () => {
   const interval = parseInt(document.getElementById('interval').value, 10);
-  const url = document.getElementById('messag').value;
-  chrome.storage.local.set({url,interval }, () => {
-    chrome.runtime.sendMessage({ command: 'start', interval , url });
+  const url = document.getElementById('url').value;
+  chrome.storage.local.set({ interval }, () => {
+    chrome.runtime.sendMessage({ command: 'start', interval });
     alert('Ürün takibi başlatıldı!');
   });
 });
