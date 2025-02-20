@@ -26,7 +26,7 @@ async function checkProducts() {
       products.forEach(product => {
         if (!seenProducts.has(product.link)) {
           seenProducts.add(product.link);
-          chrome.tabs.create({ url: product.link });
+          chrome.tabs.create({ url: product.link, active: false});
         }
       });
     }
@@ -46,3 +46,4 @@ function scrapeProducts() {
   });
   return products;
 }
+
