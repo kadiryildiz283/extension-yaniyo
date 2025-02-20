@@ -37,11 +37,12 @@ async function checkProducts() {
 function scrapeProducts() {
   const products = [];
   const productElements = document.querySelectorAll('.Product_product__bI6Qj');
+
   productElements.forEach(product => {
-    const productContainer = document.querySelector('.Product_gotoBuy__HGaEw'); 
-    const link = productContainer.querySelector('a')?.href;
-    if (link) {
-      products.push({ link });
+    const links = product.querySelectorAll('a'); // Get all <a> elements within the product
+    if (links.length >= 2) { // Check if at least two links exist
+      const secondLink = links[1].href; // Access the second link (index 1)
+      products.push({ link: secondLink });
     }
   });
   return products;
